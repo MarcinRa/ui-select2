@@ -196,7 +196,9 @@ angular.module('ui.select2', []).value('uiSelect2Config', {}).directive('uiSelec
         });
 
         attrs.$observe('disabled', function (value) {
-          elm.select2('enable', !value);
+          if(!angular.isUndefined(value)){
+            elm.select2('enable', !(value == 'true'));
+          }
         });
 
         attrs.$observe('readonly', function (value) {
@@ -230,6 +232,9 @@ angular.module('ui.select2', []).value('uiSelect2Config', {}).directive('uiSelec
                   controller.$setPristine();
               }
             elm.prev().toggleClass('ng-pristine', controller.$pristine);
+          }
+          if( !angular.isUndefined(attrs.disabled) ){
+              elm.select2('enable', !(attrs.disabled == 'true'));
           }
         });
       };
